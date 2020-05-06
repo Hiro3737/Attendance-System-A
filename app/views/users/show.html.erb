@@ -4,7 +4,9 @@
     <tr>
       <td><%= link_to "⇦前月", user_path(date: @first_day.prev_month), class: "btn" %>【<%= l(@first_day, format: :middle) %>】時間管理表 <%= link_to "次月⇨", user_path(date: @first_day.next_month) , class: "btn" %> </td>
       <!--app/helpers/users_helper.rbに定義済み-->
-      <td>指定勤務時間 : <%= format_basic_info(@user.work_time) %></td>
+      <td>指定勤務開始時間　<%= format_basic_info(@user.designated_work_start_time) %><br>
+          指定勤務終了時間　<%= format_basic_info(@user.designated_work_end_time) %>
+      </td>
       <!--app/helpers/users_helper.rbに定義済み-->
       <td colspan = "3">基本時間 : <%= format_basic_info(@user.basic_time) %></td>
       <!--app/helpers/attendances_helper.rbに定義済み-->
