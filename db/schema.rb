@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20200506055915) do
     t.datetime "work_time", default: "2020-05-05 22:30:00"
     t.integer "employee_number"
     t.string "uid"
-    t.datetime "designated_working_start_time", default: "2020-05-06 00:00:00"
+    t.datetime "designated_work_start_time", default: "2020-05-06 00:00:00"
     t.datetime "designated_work_end_time", default: "2020-05-06 09:00:00"
     t.boolean "superion", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
