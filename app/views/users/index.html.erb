@@ -12,16 +12,55 @@
       <%= text_field_tag :search %><%= submit_tag '検索',class: "btn btn-primary", :name => nil %>
     <% end %>
   </div>
+
   <%= will_paginate %>
   <table class="table">
     <% @users.each do |user| %>
       <tr>
         <td>
-          <%= link_to user.name, user %>
+          <%= user.name %>
           <% if current_user.admin? && !current_user?(user) %>
-            |  <%= link_to '基本情報編集', edit_basic_info_user_path(user) %>  |  <%= link_to '削除', user, method: :delete, data: { confirm: "削除してよろしいですか？" } %>
-          <% else %>
-            <% # %>
+          <div>
+          ｜<%= link_to "削除", user, method: :delete,
+                data: { confirm: "削除してよろしいですか？" }, class:"btn btn-danger"%>
+          </div>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample<%= user.id %>" aria-expanded="false" aria-controls="collapseExample">
+              編集
+            </button>
+            <div class="collapse" id="collapseExample<%= user.id %>">
+              <div class="card card-body">
+                <%= form_with(model: user, local: true) do |f| %>
+                  <%= f.label :名前 %>
+                  <%= f.text_field :name, class: 'form-control'%>
+
+                  <%= f.label :メールアドレス %>
+                  <%= f.email_field :email, class: 'form-control'%>
+
+                  <%= f.label :所属 %>
+                  <%= f.text_field :department, class: 'form-control' %>
+
+                  <%= f.label :社員番号 %>
+                  <%= f.number_field :employee_number, class: 'form-control' %>
+
+                  <%= f.label :カード番号 %>
+                  <%= f.text_field :uid, class: 'form-control' %>
+
+                  <%= f.label :基本時間 %>
+                  <%= f.time_field :basic_time, class: 'form-control' %>
+
+                  <%= f.label :指定勤務開始時間　%>
+                  <%= f.time_field :designated_work_start_time, class: 'form-control' %>
+
+                  <%= f.label :指定勤務終了時間　%>
+                  <%= f.time_field :designated_work_end_time, class: 'form-control' %>
+
+                  <%= f.label :パスワード %>
+                  <%= f.password_field :password, class: 'form-control' %>
+
+                  <%= f.submit "更新", class: "btn btn-primary" %>
+                <% end %>
+              </div>
+            </div>
           <% end %>
         </td>
       </tr>

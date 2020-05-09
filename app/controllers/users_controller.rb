@@ -4,29 +4,27 @@ class UsersController < ApplicationController
   # [:index, :show, :edit, :update, :destroy]にいく際は、すでにログインしているユーザーのみ
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   # 現在ログインしているユーザーのみ[:edit, :update]できる。
-  before_action :correct_user, only: [:edit, :update]
-  
-  before_action :admin_or_correct_user, only: :show
-  
-  before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
-  
-  before_action :set_one_month, only: :show
-  
+  before_action :correct_user, only: [:edit]
 
-  
+  before_action :admin_or_correct_user, only: :show
+
+  before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
+
+  before_action :set_one_month, only: :show
+
   def new # ユーザー新規作成ページへ
     @user = User.new # ユーザーオブジェクトを生成し、インスタンス変数に代入。
   end
-  
+
   def index
     # @users = User.allから下記に置き換え
     @users = User.paginate(page: params[:page]).search(params[:search]) # 名前検索フォームに必須。
   end
-  
+
   def show # ユーザーの勤怠ページ
     @worked_sum = @attendances.where.not(started_at: nil).count
   end
-  
+
   def create # ユーザー新規作成ページから登録（保存）まで
     @user = User.new(user_params)
     if @user.save
@@ -38,11 +36,11 @@ class UsersController < ApplicationController
       render :new
     end
   end
-  
+
   def edit # 編集
     # @user = User.find(params[:id])
   end
-  
+
   def update # 更新
     # @user = User.find(params[:id])
     # .update_attributes(user_params)　⇨　(user_params)を更新し、保存する。
@@ -51,16 +49,16 @@ class UsersController < ApplicationController
       flash[:success] = "ユーザー情報を更新しました。"
       redirect_to @user
     else
-      render :edit      
+      render :edit
     end
   end
-  
+
   def destroy
     @user.destroy
     flash[:success] = "#{@user.name}のデータを削除しました。"
     redirect_to users_url
   end
-  
+
   def edit_basic_info
   end
 
@@ -75,22 +73,21 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  
   private
     # ストロングパラメーター　⇨　permit内のカラムをそれぞれ許可し、それ以外は許可しないよう設定。
     def user_params
-      params.require(:user).permit(:name, :email, :affiliation, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :affiliation, :employee_number, :uid, :basic_time, :designated_work_start_time, :designated_work_end_time, :password, :password_confirmation)
     end
-    
+
     def basic_info_params
       params.require(:user).permit(:department, :designated_work_start_time, :designated_work_end_time, :basic_time, :work_time)
     end
-    
+
     def admin_or_correct_user
       @user = User.find(params[:user_id]) if @user.blank?
       unless current_user?(@user) || current_user.admin?
         flash[:danger] = "編集権限がありません。"
         redirect_to(root_url)
-      end  
+      end
     end
 end
