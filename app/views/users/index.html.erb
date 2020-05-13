@@ -13,6 +13,20 @@
     <% end %>
   </div>
 
+  <%= form_with(model: @user, url: import_users_path, method: :post, local: true, multipart: true) do |f| %>
+    <div class="input-group col-md-5">
+      <label class="input-group-btn">
+        <span class="btn btn-default">
+          ファイルを選択<%= f.file_field :file, class: "custom-field" %>
+        </span>
+      </label>
+      <%= f.text_field :text, class: "form-control", readonly: "" %>
+    </div>
+    <div class="col-md-5 submit-table">
+      <%= f.submit "CSVをインポート", class: "btn btn-primary submit-btn" %>
+    </div>
+  <% end %>
+
   <%= will_paginate %>
   <table class="table">
     <% @users.each do |user| %>
@@ -68,3 +82,12 @@
   </table>
   <%= will_paginate %>
 </div>
+
+<script>
+   $(document).on('change', ':file', function() {
+    var input = $(this),
+    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.parent().parent().next(':text').val(label);
+  });
+</script>

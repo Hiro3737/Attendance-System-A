@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # ここでは指定せずにSessionsコントローラに直接追加
   
   resources :users do
+    collection { post :import}
     # memberブロックをリソースブロックに追加する
     member do
       get 'edit_basic_info'
