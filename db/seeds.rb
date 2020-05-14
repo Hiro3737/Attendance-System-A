@@ -7,7 +7,7 @@ User.create!(name: "管理者",
              # db/migrate/[timestamp]_add_admin_to_users.rbにadminをデフォルトでfalseにする。
              admin: true) # 管理者権限を与える。
 
-60.times do |n|
+5.times do |n|
   name  = Faker::Name.name
   email = "sample-#{n+1}@email.com"
   password = "password"
