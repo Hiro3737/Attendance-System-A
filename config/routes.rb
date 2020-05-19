@@ -18,8 +18,10 @@ Rails.application.routes.draw do
       get 'attendances/edit_one_month' # 勤怠編集ページのルーティング
       patch 'attendances/update_one_month' # 勤怠編集ページをまとめて更新する為のルーティング。
     end
-    # onlyオプションで指定することで、updateアクション以外のルーティングを制限。
     # 勤怠データは、アップデートのみ。
-    resources :attendances, only: :update
+    resources :attendances do
+      patch 'update'
+      get 'overtime'
+    end
   end
 end

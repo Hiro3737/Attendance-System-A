@@ -76,7 +76,9 @@
           end
         %>
         <tr>
-        <td></td>
+        <td>
+          <%= link_to "残業申請",user_attendance_overtime_path(@user,day.worked_on), remote: true, class: "btn btn-primary"%>
+        </td>
           <td><%= l(day.worked_on, format: :short) %></td> <!--日付-->
           <!--上記の土日色変えをここに反映させる。-->
           <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td> <!--曜日-->
