@@ -17,11 +17,10 @@ Rails.application.routes.draw do
       patch 'update_basic_info'
       get 'attendances/edit_one_month' # 勤怠編集ページのルーティング
       patch 'attendances/update_one_month' # 勤怠編集ページをまとめて更新する為のルーティング。
+      get 'attendances/edit_overtime'
+      patch 'attendances/update_overtime'
     end
     # 勤怠データは、アップデートのみ。
-    resources :attendances do
-      patch 'update'
-      get 'overtime'
-    end
+    resources :attendances, only: :update
   end
 end

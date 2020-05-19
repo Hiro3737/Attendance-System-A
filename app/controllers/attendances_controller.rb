@@ -52,6 +52,18 @@ class AttendancesController < ApplicationController
     flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
     redirect_to attendances_edit_one_month_user_url(date: params[:date])
   end
+
+  def edit_overtime
+    @attendance = Attendance.find(params[:id])
+  end
+
+  def update_overtime
+    @attendance = Attendance.find(params[:id])
+    @user = User.find(@attendance.user_id)
+    @attendance.update_attributes(attendances_params)
+    flash[:info] = "残業申請を送信しました。"
+    redirect_to @user
+  end
   
   private
     # 1ヶ月分の勤怠情報を扱います。これが、itemに入っている。
