@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20200520085605) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "end_estimated_time"
-    t.boolean "next_day_flag"
+    t.boolean "next_day_flag", default: false
     t.string "business_outline：string"
     t.integer "application_status", default: 0
     t.index ["user_id"], name: "index_attendances_on_user_id"
@@ -36,12 +36,12 @@ ActiveRecord::Schema.define(version: 20200520085605) do
     t.string "remember_digest"
     t.string "affiliation"
     t.boolean "admin", default: false
-    t.datetime "basic_time", default: "2020-05-17 23:00:00"
-    t.datetime "work_time", default: "2020-05-17 22:30:00"
+    t.datetime "basic_time", default: "2020-05-19 23:00:00"
+    t.datetime "work_time", default: "2020-05-19 22:30:00"
     t.integer "employee_number"
     t.string "uid"
-    t.datetime "designated_work_start_time", default: "2020-05-18 00:00:00"
-    t.datetime "designated_work_end_time", default: "2020-05-18 09:00:00"
+    t.datetime "designated_work_start_time", default: "2020-05-20 00:00:00"
+    t.datetime "designated_work_end_time", default: "2020-05-20 09:00:00"
     t.boolean "superion", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
