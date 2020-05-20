@@ -1,4 +1,4 @@
-<% provide(:class_text, 'edit_overtime') %>
+<% provide(:class_text, 'update_overtime') %>
 <% provide(:button_text, '変更を送信する') %>
 
 <div class="modal-dialog modal-lg modal-dialog-center">
@@ -9,6 +9,39 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <%= form_with(model: @attendance, url: attendances_update_overtime_user_path(@attendance), local: true, method: :patch) do |f| %>
+            <table class = "table-bordered table-striped table-condensed">
+            <thead>
+             <tr>
+                <td>日付</td>
+                <td>曜日</td>
+                <td>残業終了予定時間</td>
+                <td>翌日</td>
+                <td>業務処理内容</td>
+                <td>指示者確認㊞</td>
+            </tr>
+            </thead>
+           <tbody>
+              <td><%= l(@attendance.worked_on, format: :short) %></td>
+               <td>
+                <% if @attendance.worked_on.wday == 6 %>
+                 <font color="Blue">土</font>
+                <% elsif @attendance.worked_on.wday == 0 %>
+                 <font color="RED">日</font>
+                <% else %>
+                 <%= $days_of_the_week[@attendance.worked_on.wday] %>
+                <% end %>
+              </td>
+              <td><% = </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+           </tbody>
+            <% end %>
+          </table>
         </div>
       </div>
     </div>

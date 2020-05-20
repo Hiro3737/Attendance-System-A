@@ -77,7 +77,7 @@
         %>
         <tr>
         <td>
-          <%= link_to "残業申請",attendances_edit_overtime_user_path(@user,day.worked_on), remote: true, class: "btn btn-primary"%>
+          <%= link_to "残業申請",attendances_edit_overtime_user_path(day), remote: true, class: "btn btn-primary"%>
         </td>
           <td><%= l(day.worked_on, format: :short) %></td> <!--日付-->
           <!--上記の土日色変えをここに反映させる。-->

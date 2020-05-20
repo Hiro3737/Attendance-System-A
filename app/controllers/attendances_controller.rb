@@ -4,10 +4,10 @@ class AttendancesController < ApplicationController
   before_action :admin_or_correct_user, only: [:edit, :update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
   before_action :finished_at_is_invalid?, only: :update_one_month
-  
+
 
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
-  
+
   def update
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
@@ -30,10 +30,10 @@ class AttendancesController < ApplicationController
     end
     redirect_to @user
   end
-  
+
   def edit_one_month
   end
-  
+
   def update_one_month
     ActiveRecord::Base.transaction do # トランザクションを開始。
     # データベースの操作を保障したい処理を以下に記述。
@@ -64,13 +64,13 @@ class AttendancesController < ApplicationController
     flash[:info] = "残業申請を送信しました。"
     redirect_to @user
   end
-  
+
   private
     # 1ヶ月分の勤怠情報を扱います。これが、itemに入っている。
     def attendances_params
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
     end
-    
+
     # beforeフィルター
 
     # 管理権限者、または現在ログインしているユーザーを許可。
@@ -79,9 +79,9 @@ class AttendancesController < ApplicationController
       unless current_user?(@user) || current_user.admin?
         flash[:danger] = "編集権限がありません。"
         redirect_to(root_url)
-      end  
+      end
     end
-    
+
     def finished_at_is_invalid?
       attendances_params.each do |id, item|
         # .blank? ⇨ 値が空?の場合、true   .present? ⇨ 値がある?場合、true
