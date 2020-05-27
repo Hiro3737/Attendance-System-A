@@ -32,16 +32,14 @@
                  <%= $days_of_the_week[@attendance.worked_on.wday] %>
                 <% end %>
               </td>
-              <td><% = </td>
-              <td>
-              </td>
-              <td>
-              </td>
-              <td>
-              </td>
+              <td><%= f.time_field :end_estimated_time, class: "form-control" %></td>
+              <td><%= f.check_box :next_day_flag, class: "form-control" %></td>
+              <td><%= f.text_field :business_outline, class: "form-control" %></td>
+              <td><%= f.select :application_status, ['なし', '申請中', '承認','否認'], {include_blank: ''} ,class: "form-control" %></td>
            </tbody>
-            <% end %>
           </table>
+          <div><%= f.submit "変更を送信する", class: "btn btn-primary" %></div>
+          <% end %>
         </div>
       </div>
     </div>
