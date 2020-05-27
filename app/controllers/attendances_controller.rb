@@ -60,7 +60,7 @@ class AttendancesController < ApplicationController
   def update_overtime
     @attendance = Attendance.find(params[:id])
     @user = User.find(@attendance.user_id)
-    @attendance.update_attributes(attendances_params)
+    @attendance.update_attributes(overtime_params)
     flash[:info] = "残業申請を送信しました。"
     redirect_to @user
   end
@@ -69,6 +69,10 @@ class AttendancesController < ApplicationController
     # 1ヶ月分の勤怠情報を扱います。これが、itemに入っている。
     def attendances_params
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+    end
+
+    def overtime_params
+      params.require(:attendance).permit(:end_estimated_time, :superior_id, :gyoumu, :next_day_flag, :application_status)
     end
 
     # beforeフィルター
